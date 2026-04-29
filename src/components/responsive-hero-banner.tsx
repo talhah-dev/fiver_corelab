@@ -1,6 +1,8 @@
 "use client";
 
-import React, { useState } from 'react';
+import gsap from "gsap";
+import Image from "next/image";
+import React, { useEffect, useRef, useState } from "react";
 
 interface NavLink {
     label: string;
@@ -31,6 +33,8 @@ interface ResponsiveHeroBannerProps {
     partnersTitle?: string;
     partners?: Partner[];
 }
+
+type LoaderWindow = typeof window & { __corelabsLoaderComplete?: boolean };
 
 const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
     logoUrl = "/logo.png",
@@ -63,17 +67,103 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
     ]
 }) => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+    const sectionRef = useRef<HTMLElement>(null);
+    const backgroundRef = useRef<HTMLDivElement>(null);
+    const navRef = useRef<HTMLElement>(null);
+    const contentRef = useRef<HTMLDivElement>(null);
+    const partnersRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const ctx = gsap.context(() => {
+            const heroItems = contentRef.current?.querySelectorAll("[data-hero-item]");
+            const partnerItems = partnersRef.current?.querySelectorAll("[data-partner-item]");
+
+            gsap.set([navRef.current, partnersRef.current], { autoAlpha: 0, y: -18 });
+            gsap.set(heroItems ?? [], { autoAlpha: 0, y: 34, filter: "blur(10px)" });
+            gsap.set(partnerItems ?? [], { autoAlpha: 0, y: 18 });
+            gsap.set(backgroundRef.current, { scale: 1.08 });
+
+            const tl = gsap.timeline({
+                paused: true,
+                defaults: { ease: "power3.out" },
+            });
+
+            tl.to(backgroundRef.current, {
+                scale: 1,
+                duration: 2.4,
+                ease: "power2.out",
+            })
+                .to(
+                    navRef.current,
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.8,
+                    },
+                    "-=1.9",
+                )
+                .to(
+                    heroItems ?? [],
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        filter: "blur(0px)",
+                        duration: 0.9,
+                        stagger: 0.12,
+                    },
+                    "-=1.35",
+                )
+                .to(
+                    partnersRef.current,
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.7,
+                    },
+                    "-=0.35",
+                )
+                .to(
+                    partnerItems ?? [],
+                    {
+                        autoAlpha: 1,
+                        y: 0,
+                        duration: 0.55,
+                        stagger: 0.08,
+                    },
+                    "-=0.45",
+                );
+
+            const playHero = () => tl.play();
+
+            if ((window as LoaderWindow).__corelabsLoaderComplete) {
+                playHero();
+            } else {
+                window.addEventListener("corelabs-loader-complete", playHero, { once: true });
+            }
+
+            return () => {
+                window.removeEventListener("corelabs-loader-complete", playHero);
+            };
+        }, sectionRef);
+
+        return () => ctx.revert();
+    }, []);
 
     return (
-        <section className="w-full isolate min-h-screen overflow-hidden relative">
-            <img
-                src={backgroundImageUrl}
-                alt=""
-                className="w-full h-full object-cover absolute top-0 right-0 bottom-0 left-0"
-            />
+        <section ref={sectionRef} className="w-full isolate min-h-screen overflow-hidden relative">
+            <div ref={backgroundRef} className="absolute inset-0">
+                <Image
+                    src={backgroundImageUrl}
+                    alt=""
+                    fill
+                    priority
+                    sizes="100vw"
+                    className="object-cover"
+                />
+            </div>
             <div className="pointer-events-none absolute inset-0 ring-1 ring-black/30" />
 
-            <header className="z-10 xl:top-4 relative">
+            <header ref={navRef} className="z-10 xl:top-4 relative">
                 <div className="mx-6">
                     <div className="flex items-center justify-between pt-4">
                         <a
@@ -125,8 +215,8 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
 
             <div className="z-10 relative">
                 <div className="sm:pt-28 md:pt-32 lg:pt-40 max-w-7xl mx-auto pt-28 px-6 pb-16">
-                    <div className="mx-auto max-w-3xl text-center">
-                        <div className="mb-6 inline-flex items-center gap-3 rounded-full bg-white/10 px-2.5 py-2 ring-1 ring-white/15 backdrop-blur animate-fade-slide-in-1">
+                    <div ref={contentRef} className="mx-auto max-w-3xl text-center">
+                        <div data-hero-item className="mb-6 inline-flex items-center gap-3 rounded-full bg-white/10 px-2.5 py-2 ring-1 ring-white/15 backdrop-blur">
                             <span className="md:inline-flex hidden items-center text-xs font-medium text-neutral-900 bg-white/90 rounded-full py-0.5 px-2 font-sans">
                                 {badgeLabel}
                             </span>
@@ -135,17 +225,17 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
                             </span>
                         </div>
 
-                        <h1 className="sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-4xl text-white tracking-tight font-instrument-serif font-normal animate-fade-slide-in-2">
+                        <h1 data-hero-item className="sm:text-5xl md:text-6xl lg:text-7xl leading-tight text-4xl text-white tracking-tight font-instrument-serif font-normal">
                             {title}
                             <br className="hidden sm:block" />
                             {titleLine2}
                         </h1>
 
-                        <p className="sm:text-lg animate-fade-slide-in-3 text-base text-white/80 max-w-2xl mt-6 mx-auto">
+                        <p data-hero-item className="sm:text-lg text-base text-white/80 max-w-2xl mt-6 mx-auto">
                             {description}
                         </p>
 
-                        <div className="flex flex-col sm:flex-row sm:gap-4 mt-10 gap-3 items-center justify-center animate-fade-slide-in-4">
+                        <div data-hero-item className="flex flex-col sm:flex-row sm:gap-4 mt-10 gap-3 items-center justify-center">
                             <a
                                 href={primaryButtonHref}
                                 className="inline-flex items-center gap-2 hover:bg-white/15 text-sm font-medium text-white bg-white/10 ring-white/15 ring-1 rounded-full py-3 px-5 font-sans transition-colors"
@@ -168,14 +258,15 @@ const ResponsiveHeroBanner: React.FC<ResponsiveHeroBannerProps> = ({
                         </div>
                     </div>
 
-                    <div className="mx-auto mt-20 max-w-5xl">
-                        <p className="animate-fade-slide-in-1 text-sm text-white/70 text-center">
+                    <div ref={partnersRef} className="mx-auto mt-20 max-w-5xl">
+                        <p data-partner-item className="text-sm text-white/70 text-center">
                             {partnersTitle}
                         </p>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 animate-fade-slide-in-2 text-white/70 mt-6 items-center justify-items-center gap-4">
+                        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 text-white/70 mt-6 items-center justify-items-center gap-4">
                             {partners.map((partner, index) => (
                                 <a
                                     key={index}
+                                    data-partner-item
                                     href={partner.href}
                                     className="inline-flex items-center justify-center bg-center w-[120px] h-[36px] bg-cover rounded-full opacity-80 hover:opacity-100 transition-opacity"
                                     style={{ backgroundImage: `url(${partner.logoUrl})` }}

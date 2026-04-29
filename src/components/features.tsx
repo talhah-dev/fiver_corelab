@@ -1,4 +1,8 @@
+"use client";
+
+import gsap from "gsap";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const features = [
   {
@@ -40,28 +44,105 @@ const features = [
 ];
 
 const Features = () => {
-  return (
-    <section className="bg-white px-6 py-16 text-[#101820] sm:py-20">
-      <div className="mx-auto flex max-w-7xl flex-col">
-        <p className="text-center text-sm font-bold uppercase tracking-[0.18em] text-[#FF5C4D]">
-          Corelabs services
-        </p>
-        <h2 className="mt-4 max-w-3xl mx-auto leading-tight text-pretty text-center font-satoshi text-4xl font-semibold tracking-tight sm:text-5xl">
-          Everything you need to build, automate, and grow online.
-        </h2>
-        <p className="mx-auto mt-4 max-w-3xl text-center text-lg text-[#415366] sm:text-xl">
-          We combine software development, AI systems, business automation, and
-          content growth so your brand has a complete digital engine.
-        </p>
+  const sectionRef = useRef<HTMLElement>(null);
+  const headingRef = useRef<HTMLDivElement>(null);
+  const cardsRef = useRef<HTMLDivElement>(null);
 
-        <div className="mt-14 grid grid-cols-1 gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const headingItems = headingRef.current?.querySelectorAll("[data-feature-heading]");
+      const cards = cardsRef.current?.querySelectorAll("[data-feature-card]");
+      const images = cardsRef.current?.querySelectorAll("[data-feature-image]");
+
+      gsap.set(headingItems ?? [], { autoAlpha: 0, y: 28, filter: "blur(8px)" });
+      gsap.set(cards ?? [], { autoAlpha: 0, y: 46, scale: 0.96 });
+      gsap.set(images ?? [], { scale: 1.08 });
+
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.to(headingItems ?? [], {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.75,
+        stagger: 0.1,
+      })
+        .to(
+          cards ?? [],
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.8,
+            stagger: 0.09,
+          },
+          "-=0.35",
+        )
+        .to(
+          images ?? [],
+          {
+            scale: 1,
+            duration: 1,
+            stagger: 0.06,
+          },
+          "-=0.75",
+        );
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            tl.play();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.22 },
+      );
+
+      observer.observe(section);
+
+      return () => {
+        observer.disconnect();
+      };
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className="bg-white px-6 py-16 text-[#101820] sm:py-20">
+      <div className="mx-auto flex max-w-7xl flex-col">
+        <div ref={headingRef}>
+          <p data-feature-heading className="text-center text-sm font-bold uppercase tracking-[0.18em] text-[#FF5C4D]">
+            Corelabs services
+          </p>
+          <h2 data-feature-heading className="mt-4 max-w-3xl mx-auto leading-tight text-pretty text-center font-satoshi text-4xl font-semibold tracking-tight sm:text-5xl">
+            Everything you need to build, automate, and grow online.
+          </h2>
+          <p data-feature-heading className="mx-auto mt-4 max-w-3xl text-center text-lg text-[#415366] sm:text-xl">
+            We combine software development, AI systems, business automation, and
+            content growth so your brand has a complete digital engine.
+          </p>
+        </div>
+
+        <div ref={cardsRef} className="mt-14 grid grid-cols-1 gap-6 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
           {features.map((feature, index) => (
             <div
+              data-feature-card
               className="group overflow-hidden rounded-lg border border-[#101820]/10 bg-[#F7FBFF] transition duration-300 hover:-translate-y-1 hover:border-[#A8D8FF] hover:shadow-[10px_10px_0_#A8D8FF]"
               key={feature.title}
             >
               <div className="mask-b-from-50% aspect-square w-full rounded-t-lg">
                 <Image
+                  data-feature-image
                   alt=""
                   className="size-full rounded-t-lg object-cover opacity-80 saturate-75 transition duration-300 group-hover:scale-105 group-hover:opacity-100"
                   height={600}

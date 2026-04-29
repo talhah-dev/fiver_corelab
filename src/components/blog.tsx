@@ -1,4 +1,8 @@
+"use client";
+
+import gsap from "gsap";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
@@ -93,12 +97,86 @@ const blogPosts = [
 ];
 
 const Blog = () => {
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const headerRef = useRef<HTMLDivElement>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    const ctx = gsap.context(() => {
+      const headerItems = headerRef.current?.querySelectorAll("[data-blog-header]");
+      const cards = gridRef.current?.querySelectorAll("[data-blog-card]");
+      const images = gridRef.current?.querySelectorAll("[data-blog-image]");
+
+      gsap.set(headerItems ?? [], { autoAlpha: 0, y: 24, filter: "blur(8px)" });
+      gsap.set(cards ?? [], { autoAlpha: 0, y: 42, scale: 0.97 });
+      gsap.set(images ?? [], { scale: 1.08 });
+
+      const tl = gsap.timeline({
+        paused: true,
+        defaults: { ease: "power3.out" },
+      });
+
+      tl.to(headerItems ?? [], {
+        autoAlpha: 1,
+        y: 0,
+        filter: "blur(0px)",
+        duration: 0.7,
+        stagger: 0.1,
+      })
+        .to(
+          cards ?? [],
+          {
+            autoAlpha: 1,
+            y: 0,
+            scale: 1,
+            duration: 0.75,
+            stagger: 0.08,
+          },
+          "-=0.28",
+        )
+        .to(
+          images ?? [],
+          {
+            scale: 1,
+            duration: 1,
+            stagger: 0.04,
+          },
+          "-=0.72",
+        );
+
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            tl.play();
+            observer.disconnect();
+          }
+        },
+        { threshold: 0.18 },
+      );
+
+      observer.observe(section);
+
+      return () => {
+        observer.disconnect();
+      };
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <div className="mx-auto max-w-(--breakpoint-xl) px-6 md:pt-16 pb-16 pt-10 xl:px-0">
-      <div className="flex items-end justify-between">
-        <h2 className="font-medium md:text-[1.5rem] tracking-tight">
+    <div ref={sectionRef} className="mx-auto max-w-(--breakpoint-xl) px-6 md:pt-16 pb-16 pt-10 xl:px-0">
+      <div ref={headerRef} className="flex items-end justify-between">
+        <h2 data-blog-header className="font-medium md:text-[1.5rem] tracking-tight">
           Today&apos;s Posts
         </h2>
+        <div data-blog-header>
         <Select defaultValue="recommended">
           <SelectTrigger className="w-[180px]">
             <SelectValue />
@@ -109,14 +187,16 @@ const Blog = () => {
             <SelectItem value="popular">Popular</SelectItem>
           </SelectContent>
         </Select>
+        </div>
       </div>
 
-      <div className="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+      <div ref={gridRef} className="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
         {blogPosts.map((post) => (
-          <Card className="gap-3 bg-muted/30 py-0 shadow-none" key={post.title}>
+          <Card data-blog-card className="gap-3 bg-muted/30 py-0 shadow-none" key={post.title}>
             <CardHeader className="p-1.5 pb-0">
               <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                 <Image
+                  data-blog-image
                   alt={post.title}
                   className="object-cover"
                   fill
