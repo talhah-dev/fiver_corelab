@@ -1,17 +1,42 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
 const LOAD_DURATION = 2200;
 const EXIT_DURATION = 500;
 type LoaderWindow = typeof window & { __corelabsLoaderComplete?: boolean };
 
+function subscribeToClientMount(onStoreChange: () => void) {
+  const frameId = requestAnimationFrame(onStoreChange);
+
+  return () => {
+    cancelAnimationFrame(frameId);
+  };
+}
+
+function getClientSnapshot() {
+  return true;
+}
+
+function getServerSnapshot() {
+  return false;
+}
+
 export default function LoadingScreen() {
+  const hasMounted = useSyncExternalStore(
+    subscribeToClientMount,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
   const [progress, setProgress] = useState(1);
   const [isLeaving, setIsLeaving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
+    if (!hasMounted) {
+      return;
+    }
+
     let frameId = 0;
     let exitTimer: ReturnType<typeof setTimeout>;
     const startedAt = performance.now();
@@ -44,31 +69,31 @@ export default function LoadingScreen() {
       cancelAnimationFrame(frameId);
       clearTimeout(exitTimer);
     };
-  }, []);
+  }, [hasMounted]);
 
-  if (!isVisible) {
+  if (!hasMounted || !isVisible) {
     return null;
   }
 
   return (
     <div
-      className={`fixed left-0 top-0 z-[2147483647] flex h-[100dvh] min-h-screen w-screen items-center justify-center bg-[#030303] text-[#d7d7d7] transition-opacity duration-500 ${
+      className={`fixed left-0 top-0 z-[2147483647] flex h-[100dvh] min-h-screen w-screen items-center justify-center bg-[#071607] text-[#D9FF8A] transition-opacity duration-500 ${
         isLeaving ? "pointer-events-none opacity-0" : "opacity-100"
       }`}
       aria-live="polite"
       aria-label="Loading website"
     >
-      <div className="flex w-full max-w-[280px] flex-col items-center px-6 text-center">
-        <div className="font-mono text-5xl font-semibold tabular-nums text-[#eeeeee]">
+      <div className="flex w-full max-w-[220px] flex-col items-center px-6 text-center">
+        <div className="font-mono text-5xl font-semibold tabular-nums text-[#f7f9f2]">
           {progress}
         </div>
-        <div className="mt-6 h-px w-full overflow-hidden bg-white/14">
+        <div className="mt-3 h-px w-full overflow-hidden bg-[#D9FF8A]/18">
           <div
-            className="h-full bg-[#d7d7d7] transition-[width] duration-100 ease-linear"
+            className="h-full bg-[#D9FF8A]/30 transition-[width] duration-100 ease-linear"
             style={{ width: `${progress}%` }}
           />
         </div>
-        <p className="mt-5 text-sm font-medium uppercase tracking-[0.32em] text-[#bdbdbd]">
+        <p className="mt-3 text-xs font-normal uppercase tracking-[0.08em] text-[#D9FF8A]/80">
           Loading
         </p>
       </div>

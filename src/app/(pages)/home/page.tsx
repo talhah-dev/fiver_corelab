@@ -1,34 +1,111 @@
-import Features from '@/components/features'
-import ResponsiveHeroBanner from '@/components/responsive-hero-banner'
-import FlowingMenu from '@/components/FlowingMenu'
-import ScrollReveal from '@/components/ScrollReveal'
-import CircularGallery from '@/components/CircularGallery'
-import AboutAndStats01 from '@/components/shadcn-space/blocks/about-us-01'
+import Ballpit from '@/components/Ballpit'
+import StaggeredMenu from '@/components/StaggeredMenu'
 import Footer from '@/components/footer'
-import DarkProcessSection from '@/components/dark-process-section'
 import Blog from '@/components/blog'
-const demoItems = [
-    { link: '#', text: 'Websites that convert', image: 'https://picsum.photos/seed/corelabs-web/600/400' },
-    { link: '#', text: 'CRM systems that organize', image: 'https://picsum.photos/seed/corelabs-crm-menu/600/400' },
-    { link: '#', text: 'AI automation that saves time', image: 'https://picsum.photos/seed/corelabs-ai-menu/600/400' },
-    { link: '#', text: 'YouTube growth systems', image: 'https://picsum.photos/seed/corelabs-youtube-menu/600/400' }
+import Lanyard from '@/components/Lanyard'
+import { ArrowRight } from 'lucide-react'
+import Link from 'next/link'
+import Services from '@/components/Services'
+import SplitDoorSection from '@/components/split-door-section'
+
+const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home section', link: '#' },
+    { label: 'Services', ariaLabel: 'View our services', link: '#services' },
+    { label: 'Work', ariaLabel: 'View our work', link: '#work' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' }
 ];
 
-const galleryItems = [
-    { image: 'https://picsum.photos/seed/corelabs-websites/800/600', text: 'Conversion Websites' },
-    { image: 'https://picsum.photos/seed/corelabs-web-apps/800/600', text: 'Custom Web Apps' },
-    { image: 'https://picsum.photos/seed/corelabs-crm/800/600', text: 'CRM Dashboards' },
-    { image: 'https://picsum.photos/seed/corelabs-ai/800/600', text: 'AI Workflows' },
-    { image: 'https://picsum.photos/seed/corelabs-automation/800/600', text: 'Business Automation' },
-    { image: 'https://picsum.photos/seed/corelabs-youtube/800/600', text: 'YouTube Growth' },
-    { image: 'https://picsum.photos/seed/corelabs-content/800/600', text: 'Content Systems' },
-    { image: 'https://picsum.photos/seed/corelabs-integrations/800/600', text: 'Tool Integrations' },
+const socialItems = [
+    { label: 'YouTube', link: 'https://youtube.com' },
+    { label: 'LinkedIn', link: 'https://linkedin.com' },
+    { label: 'Email', link: 'mailto:hello@corelabs.agency' }
 ];
+
 
 export default function HomePage() {
     return (
         <div className='overflow-hidden'>
-            <ResponsiveHeroBanner
+
+
+            <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#0F2D0F] px-5 py-20 text-white">
+                <div className="absolute inset-0 z-30">
+                    <StaggeredMenu
+                        position="right"
+                        items={menuItems}
+                        socialItems={socialItems}
+                        displaySocials
+                        displayItemNumbering={true}
+                        menuButtonColor="#F4FFE7"
+                        openMenuButtonColor="#0F2D0F"
+                        changeMenuColorOnOpen={true}
+                        colors={['#9BFF00', '#D9FF8A']}
+                        logoText="Corelabs"
+                        accentColor="#9BFF00"
+                    />
+                </div>
+                <div className="absolute inset-0 opacity-80">
+                    <Ballpit
+                        count={115}
+                        colors={[0x9BFF00, 0xC8FF5E, 0xE8FFB8]}
+                        ambientColor={0xF4FFE7}
+                        ambientIntensity={1.6}
+                        lightIntensity={320}
+                        materialParams={{
+                            metalness: 0.18,
+                            roughness: 0.26,
+                            clearcoat: 1,
+                            clearcoatRoughness: 0.06,
+                        }}
+                        gravity={0.01}
+                        friction={0.9975}
+                        wallBounce={0.95}
+                        followCursor={false}
+                    />
+                </div>
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(15,45,15,0.1),rgba(15,45,15,0.10)_62%,#071607_100%)]" />
+                <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center">
+                    <p className="mb-5 rounded-full border border-[#9BFF00]/35 bg-[#9BFF00]/10 px-5 py-2 text-sm font-normal text-[#D9FF8A]">
+                        Corelabs - AI, software, automation, and content growth
+                    </p>
+                    <h1 className="max-w-5xl text-5xl font-bold leading-tight text-white sm:text-7xl">
+                        Build systems that grow while you sleep.
+                    </h1>
+                    <p className="mt-7 max-w-2xl text-base leading-7 text-white/78 sm:text-lg">
+                        We create high-converting websites, CRM dashboards, AI
+                        automations, workflow systems, and YouTube growth engines
+                        for brands that want sharper operations and stronger
+                        attention.
+                    </p>
+                    <div className="mt-9 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
+                        <Link
+                            className="group inline-flex min-h-14 w-full items-center justify-between  gap-4 rounded-full bg-[#9BFF00] py-2 pl-7 pr-2 text-sm font-medium text-[#0F2D0F] transition hover:bg-[#C8FF5E] sm:w-auto sm:min-w-52"
+                            href="#contact"
+                        >
+                            <span>Start a Project</span>
+                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                <ArrowRight className="h-4 w-4 -rotate-45" />
+                            </span>
+                        </Link>
+                        <Link
+                            className="group inline-flex min-h-14 w-full items-center justify-between  gap-4 rounded-full border border-white/22 bg-white/8 py-2 pl-7 pr-2 text-sm font-medium text-white transition hover:border-[#9BFF00]/70 hover:bg-[#9BFF00]/10 sm:w-auto sm:min-w-52"
+                            href="#services"
+                        >
+                            <span>Explore Services</span>
+                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
+                                <ArrowRight className="h-4 w-4 -rotate-45" />
+                            </span>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+
+            <Services />
+
+            <SplitDoorSection />
+
+            <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+
+            {/* <ResponsiveHeroBanner
                 navLinks={[
                     { label: "Home", href: "#", isActive: true },
                     { label: "Websites", href: "#" },
@@ -51,8 +128,8 @@ export default function HomePage() {
             <Features />
             <DarkProcessSection />
             <div className="text-7xl md:block hidden opacity-0 select-none">
-                Lorem, ipsum dolor sit amet 
-            </div>
+                Lorem, ipsum dolor sit amet
+            </div> */}
             {/* <div style={{ height: '600px', position: 'relative' }}>
                 <FlowingMenu items={demoItems}
                     speed={15}
@@ -63,7 +140,7 @@ export default function HomePage() {
                     borderColor="#101820"
                 />
             </div> */}
-            <div className="max-w-7xl p-5 w-full mx-auto md:mb-10">
+            {/* <div className="max-w-7xl p-5 w-full mx-auto md:mb-10">
                 <ScrollReveal
                     baseOpacity={0.1}
                     enableBlur
@@ -74,7 +151,7 @@ export default function HomePage() {
                     CRMs that organize your pipeline, AI automations that save time, and YouTube
                     content engines that keep your brand moving every day.
                 </ScrollReveal>
-            </div>
+            </div> */}
             {/* <div className="bg-white" style={{ height: '600px', position: 'relative' }}>
                 <CircularGallery items={galleryItems} textColor="#101820"
                     bend={1}
@@ -94,7 +171,7 @@ export default function HomePage() {
                     grayscale
                 />
             </div> */}
-            <Blog/>
+            <Blog />
             <Footer />
         </div>
     )
