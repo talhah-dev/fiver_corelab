@@ -170,3 +170,12 @@
   animation: corelabs-marquee 26s linear infinite;
   will-change: transform;
 }
+
+body.corelabs-loading {
+  overflow: hidden;
+}
+
+body.corelabs-loading .corelabs-app-shell {
+  opacity: 0;
+  visibility: hidden;
+}

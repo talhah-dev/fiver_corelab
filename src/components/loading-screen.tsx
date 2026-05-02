@@ -1,42 +1,17 @@
 "use client";
 
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useState } from "react";
 
 const LOAD_DURATION = 2200;
 const EXIT_DURATION = 500;
 type LoaderWindow = typeof window & { __corelabsLoaderComplete?: boolean };
 
-function subscribeToClientMount(onStoreChange: () => void) {
-  const frameId = requestAnimationFrame(onStoreChange);
-
-  return () => {
-    cancelAnimationFrame(frameId);
-  };
-}
-
-function getClientSnapshot() {
-  return true;
-}
-
-function getServerSnapshot() {
-  return false;
-}
-
 export default function LoadingScreen() {
-  const hasMounted = useSyncExternalStore(
-    subscribeToClientMount,
-    getClientSnapshot,
-    getServerSnapshot,
-  );
   const [progress, setProgress] = useState(1);
   const [isLeaving, setIsLeaving] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
 
   useEffect(() => {
-    if (!hasMounted) {
-      return;
-    }
-
     let frameId = 0;
     let exitTimer: ReturnType<typeof setTimeout>;
     const startedAt = performance.now();
@@ -58,6 +33,7 @@ export default function LoadingScreen() {
       setIsLeaving(true);
       exitTimer = setTimeout(() => {
         (window as LoaderWindow).__corelabsLoaderComplete = true;
+        document.body.classList.remove("corelabs-loading");
         window.dispatchEvent(new Event("corelabs-loader-complete"));
         setIsVisible(false);
       }, EXIT_DURATION);
@@ -69,9 +45,9 @@ export default function LoadingScreen() {
       cancelAnimationFrame(frameId);
       clearTimeout(exitTimer);
     };
-  }, [hasMounted]);
+  }, []);
 
-  if (!hasMounted || !isVisible) {
+  if (!isVisible) {
     return null;
   }
 
