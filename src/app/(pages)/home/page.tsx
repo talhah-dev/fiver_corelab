@@ -2,11 +2,14 @@ import Ballpit from '@/components/Ballpit'
 import StaggeredMenu from '@/components/StaggeredMenu'
 import Footer from '@/components/footer'
 import Blog from '@/components/blog'
-import Lanyard from '@/components/Lanyard'
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import Services from '@/components/Services'
+import Shuffle from '@/components/Shuffle'
 import SplitDoorSection from '@/components/split-door-section'
+import CorelabsCurveTicker from '@/components/corelabs-curve-ticker'
+import CorelabsShowcaseGrid from '@/components/corelabs-showcase-grid'
+import CorelabsMarquee from '@/components/corelabs-marquee'
 
 const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home section', link: '#' },
@@ -28,7 +31,7 @@ export default function HomePage() {
 
 
             <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#0F2D0F] px-5 py-20 text-white">
-                <div className="absolute inset-0 z-30">
+                <div className="absolute inset-0">
                     <StaggeredMenu
                         position="right"
                         items={menuItems}
@@ -63,13 +66,27 @@ export default function HomePage() {
                     />
                 </div>
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(15,45,15,0.1),rgba(15,45,15,0.10)_62%,#071607_100%)]" />
-                <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center text-center">
+                <div className="relative z-10 mx-auto pt-10 flex max-w-5xl flex-col items-center text-center">
                     <p className="mb-5 rounded-full border border-[#9BFF00]/35 bg-[#9BFF00]/10 px-5 py-2 text-sm font-normal text-[#D9FF8A]">
-                        Corelabs - AI, software, automation, and content growth
+                        Corelabs - AI, software, automation, <span className='md:inline hidden'>and content growth</span>
                     </p>
-                    <h1 className="max-w-5xl text-5xl font-bold leading-tight text-white sm:text-7xl">
-                        Build systems that grow while you sleep.
-                    </h1>
+                    <Shuffle
+                        text="Build systems that grow while you sleep."
+                        shuffleDirection="right"
+                        duration={1}
+                        className='font-bold'
+                        animationMode="evenodd"
+                        shuffleTimes={1}
+                        ease="power3.out"
+                        stagger={0.03}
+                        threshold={0.1}
+                        triggerOnce={true}
+                        triggerOnHover
+                        respectReducedMotion={true}
+                        loop={false}
+                        loopDelay={2}
+                    />
+                   
                     <p className="mt-7 max-w-2xl text-base leading-7 text-white/78 sm:text-lg">
                         We create high-converting websites, CRM dashboards, AI
                         automations, workflow systems, and YouTube growth engines
@@ -99,11 +116,12 @@ export default function HomePage() {
                 </div>
             </div>
 
+            {/* <CorelabsCurveTicker /> */}
             <Services />
 
             <SplitDoorSection />
-
-            <Lanyard position={[0, 0, 20]} gravity={[0, -40, 0]} />
+            <CorelabsShowcaseGrid />
+            <CorelabsMarquee />
 
             {/* <ResponsiveHeroBanner
                 navLinks={[

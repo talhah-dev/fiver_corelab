@@ -3,6 +3,7 @@
 import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Galaxy from "@/components/Galaxy";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -55,8 +56,27 @@ export default function SplitDoorSection() {
       className="relative h-screen overflow-hidden bg-[#091e09] text-white"
       ref={sectionRef}
     >
+      <div className="absolute inset-0">
+        <Galaxy
+          className="h-full w-full"
+          mouseRepulsion
+          mouseInteraction
+          density={1}
+          glowIntensity={0.3}
+          saturation={0}
+          hueShift={140}
+          twinkleIntensity={0.3}
+          rotationSpeed={0.1}
+          repulsionStrength={2}
+          autoCenterRepulsion={0}
+          starSpeed={0.5}
+          speed={1}
+          transparent
+        />
+      </div>
+      <div className="absolute inset-0 bg-[#091e09]/35" />
       <div
-        className="absolute inset-0 flex items-center justify-center px-5"
+        className="absolute inset-0 z-20 flex items-center justify-center px-5"
         ref={contentRef}
       >
         <div className="mx-auto max-w-4xl text-center">
@@ -69,21 +89,11 @@ export default function SplitDoorSection() {
             growth into one clean execution path, so your website, CRM, and
             marketing engine move together.
           </p>
-          <div className="mt-9 flex flex-wrap justify-center gap-3">
-            {steps.map((step) => (
-              <span
-                className="rounded-full border border-[#9BFF00]/30 bg-[#9BFF00]/10 px-5 py-2 text-sm font-normal text-[#D9FF8A]"
-                key={step}
-              >
-                {step}
-              </span>
-            ))}
-          </div>
         </div>
       </div>
 
       <div
-        className="absolute left-0 top-0 z-10 flex h-1/2 w-full items-end justify-center overflow-hidden border-b border-[#9BFF00]/20 bg-[#0F2D0F] px-4"
+        className="absolute left-0 top-0 z-30 flex h-1/2 w-full items-end justify-center overflow-hidden border-b border-[#9BFF00]/20 bg-[#0F2D0F]/88 px-4 backdrop-blur-[2px]"
         ref={topPanelRef}
       >
         <span className="translate-y-1/2 select-none text-[clamp(4rem,18vw,16rem)] font-bold leading-none text-[#f7f9f2]">
@@ -92,7 +102,7 @@ export default function SplitDoorSection() {
       </div>
 
       <div
-        className="absolute bottom-0 left-0 z-10 flex h-1/2 w-full items-start justify-center overflow-hidden border-t border-[#9BFF00]/20 bg-[#0F2D0F] px-4"
+        className="absolute bottom-0 left-0 z-30 flex h-1/2 w-full items-start justify-center overflow-hidden border-t border-[#9BFF00]/20 bg-[#0F2D0F]/88 px-4 backdrop-blur-[2px]"
         ref={bottomPanelRef}
       >
         <span className="-translate-y-1/2 select-none text-[clamp(4rem,18vw,16rem)] font-bold leading-none text-[#f7f9f2]">

@@ -74,26 +74,6 @@ const blogPosts = [
     image:
       "https://cdn.pixabay.com/photo/2021/08/12/10/38/mountains-6540497_1280.jpg",
   },
-  {
-    category: "Science",
-    title: "Deploying Full-Stack Apps on Vercel",
-    author: "Bob Smith",
-    authorImage:
-      "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=128",
-    date: "Nov 15, 2024",
-    image:
-      "https://cdn.pixabay.com/photo/2016/03/27/18/54/technology-1283624_1280.jpg",
-  },
-  {
-    category: "Sports",
-    title: "Getting Started with Modern Web Development",
-    author: "Sarah Williams",
-    authorImage:
-      "https://images.pexels.com/photos/2613260/pexels-photo-2613260.jpeg?auto=compress&cs=tinysrgb&w=128",
-    date: "Nov 12, 2024",
-    image:
-      "https://cdn.pixabay.com/photo/2017/08/30/12/45/girl-2696947_1280.jpg",
-  },
 ];
 
 const Blog = () => {
@@ -171,67 +151,69 @@ const Blog = () => {
   }, []);
 
   return (
-    <div ref={sectionRef} className="mx-auto max-w-(--breakpoint-xl) px-6 md:pt-16 pb-16 pt-10 xl:px-0">
-      <div ref={headerRef} className="flex items-end justify-between">
-        <h2 data-blog-header className="font-medium md:text-[1.5rem] tracking-tight">
-          Today&apos;s Posts
-        </h2>
-        <div data-blog-header>
-        <Select defaultValue="recommended">
-          <SelectTrigger className="w-[180px]">
-            <SelectValue />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="recommended">Recommended</SelectItem>
-            <SelectItem value="latest">Latest</SelectItem>
-            <SelectItem value="popular">Popular</SelectItem>
-          </SelectContent>
-        </Select>
+    <div className="bg-[#f7f9f2]">
+      <div ref={sectionRef} className="mx-auto  max-w-(--breakpoint-xl) px-6 md:pt-16 pb-16 pt-10 xl:px-0">
+        <div ref={headerRef} className="flex items-end justify-between">
+          <h2 data-blog-header className="font-medium md:text-[1.5rem] tracking-tight">
+            Today&apos;s Posts
+          </h2>
+          <div data-blog-header>
+            <Select defaultValue="recommended">
+              <SelectTrigger className="w-[180px]">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="recommended">Recommended</SelectItem>
+                <SelectItem value="latest">Latest</SelectItem>
+                <SelectItem value="popular">Popular</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
         </div>
-      </div>
 
-      <div ref={gridRef} className="mt-6 grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
-        {blogPosts.map((post) => (
-          <Card data-blog-card className="gap-3 bg-muted/30 py-0 shadow-none" key={post.title}>
-            <CardHeader className="p-1.5 pb-0">
-              <div className="relative aspect-video w-full overflow-hidden rounded-lg">
-                <Image
-                  data-blog-image
-                  alt={post.title}
-                  className="object-cover"
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  src={post.image}
-                />
-              </div>
-            </CardHeader>
-            <CardContent className="px-4 pt-0 pb-5">
-              <Badge variant="secondary">{post.category}</Badge>
-
-              <h3 className="mt-4 font-medium text-[1.4rem] text-xl tracking-[-0.02em]">
-                {post.title}
-              </h3>
-              <div className="mt-6 flex items-center justify-between">
-                <div className="flex items-center gap-2">
+        <div ref={gridRef} className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {blogPosts.map((post) => (
+            <Card data-blog-card className="gap-3 bg-muted/30 py-0 shadow-none" key={post.title}>
+              <CardHeader className="p-1.5 pb-0">
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg">
                   <Image
-                    alt={post.author}
-                    className="size-8 rounded-full object-cover"
-                    height={32}
-                    src={post.authorImage}
-                    width={32}
+                    data-blog-image
+                    alt={post.title}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    src={post.image}
                   />
-                  <span className="font-medium text-muted-foreground">
-                    {post.author}
+                </div>
+              </CardHeader>
+              <CardContent className="px-4 pt-0 pb-5">
+                <Badge variant="secondary">{post.category}</Badge>
+
+                <h3 className="mt-4 font-medium text-[1.4rem] text-xl tracking-[-0.02em]">
+                  {post.title}
+                </h3>
+                <div className="mt-6 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Image
+                      alt={post.author}
+                      className="size-8 rounded-full object-cover"
+                      height={32}
+                      src={post.authorImage}
+                      width={32}
+                    />
+                    <span className="font-medium text-muted-foreground">
+                      {post.author}
+                    </span>
+                  </div>
+
+                  <span className="text-muted-foreground text-sm">
+                    {post.date}
                   </span>
                 </div>
-
-                <span className="text-muted-foreground text-sm">
-                  {post.date}
-                </span>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </div>
     </div>
   );

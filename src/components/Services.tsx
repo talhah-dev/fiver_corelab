@@ -7,37 +7,37 @@ const services = [
     title: "Websites & Web Apps",
     badge: "Launch",
     text: "Fast, polished digital experiences built to convert visitors into real leads.",
-    image: "https://picsum.photos/seed/corelabs-website-service/900/1100",
+    image: "https://images.unsplash.com/photo-1547658719-da2b51169166?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "CRM Systems",
     badge: "Organize",
     text: "Custom dashboards that organize leads, clients, tasks, and follow-ups in one place.",
-    image: "https://picsum.photos/seed/corelabs-crm-service/900/1100",
+    image: "https://images.unsplash.com/photo-1585247226801-bc613c441316?q=80&w=880&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "AI Automation",
     badge: "Automate",
     text: "Smart workflows that handle repetitive work, content tasks, and internal operations.",
-    image: "https://picsum.photos/seed/corelabs-ai-service/900/1100",
+    image: "https://images.unsplash.com/photo-1697577418970-95d99b5a55cf?q=80&w=996&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Business Automation",
     badge: "Scale",
     text: "Connected tools, forms, alerts, and processes that keep your team moving faster.",
-    image: "https://picsum.photos/seed/corelabs-automation-service/900/1100",
+    image: "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?q=80&w=1176&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "YouTube A-Z Marketing",
     badge: "Grow",
     text: "Strategy, packaging, content systems, and growth plans for channels that need momentum.",
-    image: "https://picsum.photos/seed/corelabs-youtube-service/900/1100",
+    image: "https://images.unsplash.com/photo-1646446835625-4f23efd5c662?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Content Systems",
     badge: "Create",
     text: "Repeatable production workflows for short-form, long-form, and brand storytelling.",
-    image: "https://picsum.photos/seed/corelabs-content-service/900/1100",
+    image: "https://images.unsplash.com/photo-1676287571987-2f98ced3e6c4?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
 

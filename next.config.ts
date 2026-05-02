@@ -28,6 +28,11 @@ const nextConfig: NextConfig = {
         hostname: "www.fffuel.co",
         pathname: "/**",
       },
+      {
+        protocol: "https",
+        hostname: "media.istockphoto.com",
+        pathname: "/**",
+      },
     ],
   },
 };
