@@ -52,6 +52,8 @@ class x {
   #l;
   constructor(e) {
     this.#e = { ...e };
+    this.maxPixelRatio = e.maxPixelRatio;
+    this.minPixelRatio = e.minPixelRatio;
     this.#m();
     this.#d();
     this.#p();
@@ -702,6 +704,8 @@ function createBallpit(e, t = {}) {
   const i = new x({
     canvas: e,
     size: 'parent',
+    maxPixelRatio: t.maxPixelRatio,
+    minPixelRatio: t.minPixelRatio,
     rendererOptions: { antialias: true, alpha: true }
   });
   let s;
@@ -777,12 +781,24 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     if (!canUseWebGL(canvas)) return;
+    const isMobileLike = window.matchMedia?.('(max-width: 767px), (hover: none), (pointer: coarse)').matches;
     const canFollowCursor =
       followCursor &&
       window.matchMedia?.('(hover: hover) and (pointer: fine)').matches;
+    const count = isMobileLike
+      ? Math.min(props.count ?? 200, 36)
+      : props.count;
+    const maxPixelRatio = isMobileLike
+      ? 1
+      : props.maxPixelRatio;
 
     try {
-      spheresInstanceRef.current = createBallpit(canvas, { followCursor: canFollowCursor, ...props });
+      spheresInstanceRef.current = createBallpit(canvas, {
+        ...props,
+        count,
+        followCursor: canFollowCursor,
+        maxPixelRatio
+      });
     } catch (error) {
       console.warn('Ballpit disabled because WebGL could not be initialized.', error);
     }

@@ -1,15 +1,37 @@
 "use client";
 
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useSyncExternalStore } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Galaxy from "@/components/Galaxy";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const steps = ["Discover", "Design", "Build", "Automate", "Grow"];
+const desktopQuery = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
+
+function subscribeToDesktopMotion(onStoreChange: () => void) {
+  const media = window.matchMedia(desktopQuery);
+  media.addEventListener("change", onStoreChange);
+
+  return () => {
+    media.removeEventListener("change", onStoreChange);
+  };
+}
+
+function getDesktopMotionSnapshot() {
+  return window.matchMedia(desktopQuery).matches;
+}
+
+function getServerDesktopMotionSnapshot() {
+  return false;
+}
 
 export default function SplitDoorSection() {
+  const shouldRenderGalaxy = useSyncExternalStore(
+    subscribeToDesktopMotion,
+    getDesktopMotionSnapshot,
+    getServerDesktopMotionSnapshot,
+  );
   const sectionRef = useRef<HTMLElement | null>(null);
   const topPanelRef = useRef<HTMLDivElement | null>(null);
   const bottomPanelRef = useRef<HTMLDivElement | null>(null);
@@ -57,22 +79,26 @@ export default function SplitDoorSection() {
       ref={sectionRef}
     >
       <div className="absolute inset-0">
-        <Galaxy
-          className="h-full w-full"
-          mouseRepulsion
-          mouseInteraction
-          density={1}
-          glowIntensity={0.3}
-          saturation={0}
-          hueShift={140}
-          twinkleIntensity={0.3}
-          rotationSpeed={0.1}
-          repulsionStrength={2}
-          autoCenterRepulsion={0}
-          starSpeed={0.5}
-          speed={1}
-          transparent
-        />
+        {shouldRenderGalaxy ? (
+          <Galaxy
+            className="h-full w-full"
+            mouseRepulsion
+            mouseInteraction
+            density={1}
+            glowIntensity={0.3}
+            saturation={0}
+            hueShift={140}
+            twinkleIntensity={0.3}
+            rotationSpeed={0.1}
+            repulsionStrength={2}
+            autoCenterRepulsion={0}
+            starSpeed={0.5}
+            speed={1}
+            transparent
+          />
+        ) : (
+          <div className="h-full w-full bg-[radial-gradient(circle_at_50%_42%,rgba(155,255,0,0.18),transparent_34%),radial-gradient(circle_at_18%_70%,rgba(217,255,138,0.1),transparent_26%),#091e09]" />
+        )}
       </div>
       <div className="absolute inset-0 bg-[#091e09]/35" />
       <div
