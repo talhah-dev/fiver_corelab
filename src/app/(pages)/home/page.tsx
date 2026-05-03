@@ -5,6 +5,7 @@ import Services from '@/components/Services'
 import SplitDoorSection from '@/components/split-door-section'
 import CorelabsShowcaseGrid from '@/components/corelabs-showcase-grid'
 import CorelabsMarquee from '@/components/corelabs-marquee'
+import CorelabsInnerPages from '@/components/corelabs-inner-pages'
 
 
 export default function HomePage() {
@@ -16,6 +17,7 @@ export default function HomePage() {
 
             <SplitDoorSection />
             <CorelabsShowcaseGrid />
+            <CorelabsInnerPages />
             <CorelabsMarquee />
 
             <Blog />

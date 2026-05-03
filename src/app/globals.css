@@ -167,7 +167,22 @@
 }
 
 .corelabs-marquee-track {
-  animation: corelabs-marquee 26s linear infinite;
+  animation: corelabs-marquee 26s linear infinite reverse;
+  will-change: transform;
+}
+
+.corelabs-step-gallery-track {
+  animation: corelabs-marquee 42s linear infinite;
+  will-change: transform;
+}
+
+.corelabs-step-gallery-track-reverse {
+  animation: corelabs-marquee 42s linear infinite reverse;
+  will-change: transform;
+}
+
+.corelabs-inner-pages-track {
+  animation: corelabs-marquee 38s linear infinite;
   will-change: transform;
 }
 

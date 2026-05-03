@@ -1,4 +1,5 @@
 import Ballpit from "@/components/Ballpit";
+import CorelabsStepGallery from "@/components/corelabs-step-gallery";
 import Shuffle from "@/components/Shuffle";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import { ArrowRight } from "lucide-react";
@@ -60,7 +61,7 @@ function HeroButton({
 
 export default function CorelabsHero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#0F2D0F] px-5 md:py-24 py-16 text-white sm:px-8">
+    <section className="relative min-h-screen overflow-hidden bg-[#0F2D0F] px-5 md:pt-24 pt-16 text-white sm:px-8">
       <div className="absolute inset-0">
         <StaggeredMenu
           accentColor="#9BFF00"
@@ -178,15 +179,9 @@ export default function CorelabsHero() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap gap-2 border-t border-white/12 pt-5">
-          {capabilities.map((item) => (
-            <span
-              className="rounded-full border border-white/12 bg-white/6 px-4 py-2 text-sm text-white/68"
-              key={item}
-            >
-              {item}
-            </span>
-          ))}
+
+        <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2">
+          <CorelabsStepGallery />
         </div>
       </div>
     </section>

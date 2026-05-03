@@ -791,13 +791,25 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
     const maxPixelRatio = isMobileLike
       ? 1
       : props.maxPixelRatio;
+    const minSize = isMobileLike
+      ? Math.min(props.minSize ?? 0.5, 0.22)
+      : props.minSize;
+    const maxSize = isMobileLike
+      ? Math.min(props.maxSize ?? 1, 0.48)
+      : props.maxSize;
+    const size0 = isMobileLike
+      ? Math.min(props.size0 ?? 1, 0.45)
+      : props.size0;
 
     try {
       spheresInstanceRef.current = createBallpit(canvas, {
         ...props,
         count,
         followCursor: canFollowCursor,
-        maxPixelRatio
+        maxPixelRatio,
+        minSize,
+        maxSize,
+        size0
       });
     } catch (error) {
       console.warn('Ballpit disabled because WebGL could not be initialized.', error);
