@@ -1,120 +1,16 @@
-import Ballpit from '@/components/Ballpit'
-import StaggeredMenu from '@/components/StaggeredMenu'
+import CorelabsHero from '@/components/corelabs-hero'
 import Footer from '@/components/footer'
 import Blog from '@/components/blog'
-import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
 import Services from '@/components/Services'
-import Shuffle from '@/components/Shuffle'
 import SplitDoorSection from '@/components/split-door-section'
-import CorelabsCurveTicker from '@/components/corelabs-curve-ticker'
 import CorelabsShowcaseGrid from '@/components/corelabs-showcase-grid'
 import CorelabsMarquee from '@/components/corelabs-marquee'
-
-const menuItems = [
-    { label: 'Home', ariaLabel: 'Go to home section', link: '#' },
-    { label: 'Services', ariaLabel: 'View our services', link: '#services' },
-    { label: 'Work', ariaLabel: 'View our work', link: '#work' },
-    { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' }
-];
-
-const socialItems = [
-    { label: 'YouTube', link: 'https://youtube.com' },
-    { label: 'LinkedIn', link: 'https://linkedin.com' },
-    { label: 'Email', link: 'mailto:hello@corelabs.agency' }
-];
 
 
 export default function HomePage() {
     return (
         <div className='overflow-hidden'>
-
-
-            <div className="relative flex min-h-screen w-full items-center justify-center overflow-hidden bg-[#0F2D0F] px-5 py-20 text-white">
-                <div className="absolute inset-0">
-                    <StaggeredMenu
-                        position="right"
-                        items={menuItems}
-                        socialItems={socialItems}
-                        displaySocials
-                        displayItemNumbering={true}
-                        menuButtonColor="#F4FFE7"
-                        openMenuButtonColor="#0F2D0F"
-                        changeMenuColorOnOpen={true}
-                        colors={['#9BFF00', '#D9FF8A']}
-                        logoText="Corelabs"
-                        accentColor="#9BFF00"
-                    />
-                </div>
-                <div className="absolute inset-0 opacity-80">
-                    <Ballpit
-                        count={115}
-                        colors={[0x9BFF00, 0xC8FF5E, 0xE8FFB8]}
-                        ambientColor={0xF4FFE7}
-                        ambientIntensity={1.6}
-                        lightIntensity={320}
-                        materialParams={{
-                            metalness: 0.18,
-                            roughness: 0.26,
-                            clearcoat: 1,
-                            clearcoatRoughness: 0.06,
-                        }}
-                        gravity={0.01}
-                        friction={0.9975}
-                        wallBounce={0.95}
-                        followCursor={false}
-                    />
-                </div>
-                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(15,45,15,0.1),rgba(15,45,15,0.10)_62%,#071607_100%)]" />
-                <div className="relative z-10 mx-auto pt-10 flex max-w-5xl flex-col items-center text-center">
-                    <p className="mb-5 rounded-full border border-[#9BFF00]/35 bg-[#9BFF00]/10 px-5 py-2 text-sm font-normal text-[#D9FF8A]">
-                        Corelabs - AI, software, automation, <span className='md:inline hidden'>and content growth</span>
-                    </p>
-                    <Shuffle
-                        text="Build systems that grow while you sleep."
-                        shuffleDirection="right"
-                        duration={1}
-                        className='font-bold'
-                        animationMode="evenodd"
-                        shuffleTimes={1}
-                        ease="power3.out"
-                        stagger={0.03}
-                        threshold={0.1}
-                        triggerOnce={true}
-                        triggerOnHover
-                        respectReducedMotion={true}
-                        loop={false}
-                        loopDelay={2}
-                    />
-                   
-                    <p className="mt-7 max-w-2xl text-base leading-7 text-white/78 sm:text-lg">
-                        We create high-converting websites, CRM dashboards, AI
-                        automations, workflow systems, and YouTube growth engines
-                        for brands that want sharper operations and stronger
-                        attention.
-                    </p>
-                    <div className="mt-9 flex w-full flex-col items-center justify-center gap-3 sm:w-auto sm:flex-row">
-                        <Link
-                            className="group inline-flex min-h-14 w-full items-center justify-between  gap-4 rounded-full bg-[#9BFF00] py-2 pl-7 pr-2 text-sm font-medium text-[#0F2D0F] transition hover:bg-[#C8FF5E] sm:w-auto sm:min-w-52"
-                            href="#contact"
-                        >
-                            <span>Start a Project</span>
-                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                                <ArrowRight className="h-4 w-4 -rotate-45" />
-                            </span>
-                        </Link>
-                        <Link
-                            className="group inline-flex min-h-14 w-full items-center justify-between  gap-4 rounded-full border border-white/22 bg-white/8 py-2 pl-7 pr-2 text-sm font-medium text-white transition hover:border-[#9BFF00]/70 hover:bg-[#9BFF00]/10 sm:w-auto sm:min-w-52"
-                            href="#services"
-                        >
-                            <span>Explore Services</span>
-                            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-                                <ArrowRight className="h-4 w-4 -rotate-45" />
-                            </span>
-                        </Link>
-                    </div>
-                </div>
-            </div>
+            <CorelabsHero />
 
             {/* <CorelabsCurveTicker /> */}
             <Services />
