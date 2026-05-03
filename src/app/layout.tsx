@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Poppins } from "next/font/google";
-import LoadingScreen from "@/components/loading-screen";
 import "./globals.css";
 
 const poppins = Poppins({
@@ -30,9 +29,8 @@ export default function RootLayout({
       lang="en"
       className={`${poppins.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className={`${poppins.className} corelabs-loading min-h-full flex flex-col`}>
-        <LoadingScreen />
-        <div className="corelabs-app-shell min-h-full flex flex-col">{children}</div>
+      <body className={`${poppins.className} min-h-full flex flex-col`}>
+        {children}
       </body>
     </html>
   );

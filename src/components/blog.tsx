@@ -152,7 +152,10 @@ const Blog = () => {
 
   return (
     <div className="bg-white">
-      <div ref={sectionRef} className="mx-auto  max-w-(--breakpoint-xl) px-6 md:pt-16 pb-16 pt-10 xl:px-0">
+      <div
+        ref={sectionRef}
+        className="mx-auto max-w-[1700px] px-5 pb-16 pt-10 md:pt-16 2xl:px-8"
+      >
         <div ref={headerRef} className="flex items-end justify-between">
           <h2 data-blog-header className="font-medium md:text-[1.5rem] tracking-tight">
             Today&apos;s Posts

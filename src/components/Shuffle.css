@@ -14,6 +14,18 @@
   visibility: visible;
 }
 
+.shuffle-parent.corelabs-hero-heading {
+  font-size: clamp(1.65rem, 7.4vw, 2.45rem);
+  line-height: 1.06;
+}
+
+@media (min-width: 640px) {
+  .shuffle-parent.corelabs-hero-heading {
+    font-size: 4.5rem;
+    line-height: 1.08;
+  }
+}
+
 .shuffle-char-wrapper {
   display: inline-block;
   overflow: hidden;

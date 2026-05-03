@@ -56,7 +56,7 @@ function GalleryRow({
       >
         {repeatedItems.map((item, index) => (
           <article
-            className="group relative h-52 w-[78vw] shrink-0 overflow-hidden rounded-lg border border-white/12 bg-white/5 sm:h-64 sm:w-[520px] lg:h-72 lg:w-[620px]"
+            className="group relative h-[8.5rem] w-[76vw] shrink-0 overflow-hidden rounded-lg border border-white/12 bg-white/5 sm:h-64 sm:w-[520px] lg:h-72 lg:w-[620px]"
             key={`${item.label}-${index}`}
           >
             <Image
@@ -67,11 +67,11 @@ function GalleryRow({
               src={item.image}
             />
             <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,22,7,0.08)_0%,rgba(7,22,7,0.78)_100%)]" />
-            <div className="absolute bottom-4 left-4 right-4 flex items-end justify-between gap-4">
-              <h3 className="text-2xl font-semibold leading-none text-white sm:text-3xl">
+            <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 sm:bottom-4 sm:left-4 sm:right-4 sm:gap-4">
+              <h3 className="text-lg font-semibold leading-none text-white sm:text-3xl">
                 {item.label}
               </h3>
-              <span className="rounded-full bg-[#9BFF00] px-3 py-1 text-xs font-medium text-[#0F2D0F]">
+              <span className="rounded-full bg-[#9BFF00] px-2.5 py-1 text-[10px] font-medium text-[#0F2D0F] sm:px-3 sm:text-xs">
                 Corelabs
               </span>
             </div>
@@ -84,8 +84,8 @@ function GalleryRow({
 
 export default function CorelabsStepGallery() {
   return (
-    <div className="overflow-hidden py-6 text-white sm:py-8">
-      <div className="space-y-5">
+    <div className="overflow-hidden py-4 text-white sm:py-8">
+      <div className="space-y-3 sm:space-y-5">
         <GalleryRow items={topRow} />
         <GalleryRow items={bottomRow} reverse />
       </div>

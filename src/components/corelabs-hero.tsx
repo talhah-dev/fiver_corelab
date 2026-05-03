@@ -36,15 +36,15 @@ function HeroButton({
 
   return (
     <Link
-      className={`group inline-flex min-h-14 w-full items-center justify-between gap-4 rounded-full py-2 pl-7 pr-2 text-sm font-medium transition sm:w-auto sm:min-w-52 ${isSolid
+      className={`group inline-flex min-h-12 w-full items-center justify-between gap-4 rounded-full py-1.5 pl-6 pr-1.5 text-sm font-medium transition sm:min-h-14 sm:w-auto sm:min-w-52 sm:py-2 sm:pl-7 sm:pr-2 ${isSolid
           ? "bg-[#9BFF00] text-[#0F2D0F] hover:bg-[#C8FF5E]"
           : "border border-white/22 bg-white/8 text-white hover:border-[#9BFF00]/70 hover:bg-[#9BFF00]/10"
         }`}
       href={href}
     >
       <span>{children}</span>
-      <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-        <ArrowRight className="h-4 w-4 -rotate-45" />
+      <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5 sm:h-10 sm:w-10">
+        <ArrowRight className="h-3.5 w-3.5 -rotate-45 sm:h-4 sm:w-4" />
       </span>
     </Link>
   );
@@ -52,7 +52,7 @@ function HeroButton({
 
 export default function CorelabsHero() {
   return (
-    <section className="relative min-h-screen overflow-hidden bg-[#0F2D0F] px-5 md:pt-24 pt-16 text-white sm:px-8">
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0F2D0F] px-4 pt-16 text-white sm:px-8 md:pt-24">
       <div className="absolute inset-0">
         <StaggeredMenu
           accentColor="#9BFF00"
@@ -72,42 +72,47 @@ export default function CorelabsHero() {
       <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_78%_26%,rgba(155,255,0,0.16),transparent_26%),radial-gradient(circle_at_12%_84%,rgba(217,255,138,0.08),transparent_24%),linear-gradient(90deg,#071607_0%,rgba(7,22,7,0.92)_45%,#0F2D0F_100%)]" />
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[3] h-40 bg-gradient-to-t from-[#071607] to-transparent" />
 
-      <div className="relative z-10 mx-auto flex min-h-[calc(100vh-12rem)] max-w-7xl flex-col justify-end pt-20">
-        <div className="grid gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.62fr)] lg:items-end">
+      <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-end pt-20 md:min-h-[calc(100vh-12rem)]">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.62fr)] lg:items-end lg:gap-10">
           <div className="max-w-4xl">
-           
-            <Shuffle
-              animationMode="evenodd"
-              className="max-w-5xl text-left text-5xl font-bold leading-tight text-white sm:text-7xl"
-              duration={1}
-              ease="power3.out"
-              loop={false}
-              loopDelay={2}
-              respectReducedMotion
-              shuffleDirection="right"
-              shuffleTimes={1}
-              stagger={0.03}
-              tag="h1"
-              text="Build systems that grow while you sleep."
-              textAlign="left"
-              threshold={0.1}
-              triggerOnce
-              triggerOnHover
-            />
+            <h1 className="max-w-3xl text-left leading-tight text-[clamp(2.35rem,11vw,3.25rem)] font-bold leading-[1.02] text-white sm:hidden">
+              Build systems that grow while you sleep.
+            </h1>
 
-            <div className="mt-7 grid gap-6 md:grid-cols-[minmax(0,0.78fr)_minmax(220px,0.34fr)] md:items-end">
-              <p className="max-w-2xl text-base leading-7 text-white/76 sm:text-lg">
+            <div className="hidden sm:block">
+              <Shuffle
+                animationMode="evenodd"
+                className="corelabs-hero-heading max-w-5xl text-left font-bold text-white"
+                duration={1}
+                ease="power3.out"
+                loop={false}
+                loopDelay={2}
+                respectReducedMotion
+                shuffleDirection="right"
+                shuffleTimes={1}
+                stagger={0.03}
+                tag="h1"
+                text="Build systems that grow while you sleep."
+                textAlign="left"
+                threshold={0.1}
+                triggerOnce
+                triggerOnHover
+              />
+            </div>
+
+            <div className="mt-5 grid gap-4 sm:mt-7 md:grid-cols-[minmax(0,0.78fr)_minmax(220px,0.34fr)] md:items-end md:gap-6">
+              <p className="max-w-2xl text-sm leading-6 text-white/76 sm:text-lg sm:leading-7">
                 We create conversion websites, CRM dashboards, AI workflows, and
                 YouTube growth engines for brands that need sharper operations,
                 cleaner execution, and better attention.
               </p>
-              <p className="border-l border-[#9BFF00]/35 pl-5 text-sm leading-6 text-[#D9FF8A]">
+              <p className="border-l border-[#9BFF00]/35 pl-4 text-xs leading-5 text-[#D9FF8A] sm:pl-5 sm:text-sm sm:leading-6">
                 Not a template. A working digital system for how your business
                 sells, serves, and scales.
               </p>
             </div>
 
-            <div className="mt-9 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <div className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row">
               <HeroButton href="#contact">Start a Project</HeroButton>
               <HeroButton href="#services" variant="ghost">
                 Explore Services
@@ -115,7 +120,7 @@ export default function CorelabsHero() {
             </div>
           </div>
 
-          <div className="grid gap-4 lg:pb-2">
+          <div className="hidden gap-4 lg:grid lg:pb-2">
             <div className="rounded-lg border border-white/12 bg-[#071607]/72 p-5 backdrop-blur-md">
               <p className="text-sm text-[#9BFF00]">Core operating stack</p>
               <div className="mt-5 grid gap-3">
@@ -145,7 +150,7 @@ export default function CorelabsHero() {
         </div>
 
 
-        <div className="relative left-1/2 mt-10 w-screen -translate-x-1/2">
+        <div className="relative left-1/2 mt-8 w-screen -translate-x-1/2 sm:mt-10">
           <CorelabsStepGallery />
         </div>
       </div>
