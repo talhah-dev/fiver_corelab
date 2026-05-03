@@ -17,12 +17,6 @@ const socialItems = [
   { label: "Email", link: "mailto:hello@corelabs.agency" },
 ];
 
-const stats = [
-  { value: "01", label: "Strategy mapped before design starts" },
-  { value: "AI", label: "Automation layered into daily operations" },
-  { value: "A-Z", label: "YouTube systems from idea to distribution" },
-];
-
 function HeroButton({
   href,
   children,
@@ -37,8 +31,8 @@ function HeroButton({
   return (
     <Link
       className={`group inline-flex min-h-12 w-full items-center justify-between gap-4 rounded-full py-1.5 pl-6 pr-1.5 text-sm font-medium transition sm:min-h-14 sm:w-auto sm:min-w-52 sm:py-2 sm:pl-7 sm:pr-2 ${isSolid
-          ? "bg-[#9BFF00] text-[#0F2D0F] hover:bg-[#C8FF5E]"
-          : "border border-white/22 bg-white/8 text-white hover:border-[#9BFF00]/70 hover:bg-[#9BFF00]/10"
+        ? "bg-[#9BFF00] text-[#0F2D0F] hover:bg-[#C8FF5E]"
+        : "border border-white/22 bg-white/8 text-white hover:border-[#9BFF00]/70 hover:bg-[#9BFF00]/10"
         }`}
       href={href}
     >
@@ -52,7 +46,7 @@ function HeroButton({
 
 export default function CorelabsHero() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-[#0F2D0F] px-4 pt-16 text-white sm:px-8 md:pt-24">
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0F2D0F] px-4 pt-16 text-white sm:px-8 md:pt-10">
       <div className="absolute inset-0">
         <StaggeredMenu
           accentColor="#9BFF00"
@@ -73,16 +67,16 @@ export default function CorelabsHero() {
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[3] h-40 bg-gradient-to-t from-[#071607] to-transparent" />
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100svh-4rem)] max-w-7xl flex-col justify-end pt-20 md:min-h-[calc(100vh-12rem)]">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.62fr)] lg:items-end lg:gap-10">
-          <div className="max-w-4xl">
-            <h1 className="max-w-3xl text-left leading-tight text-[clamp(2.35rem,11vw,3.25rem)] font-bold leading-[1.02] text-white sm:hidden">
-              Build systems that grow while you sleep.
+        <div className="grid gap-8 lg:gap-10">
+          <div className="mx-auto max-w-4xl text-center">
+            <h1 className="mx-auto max-w-3xl text-center text-[clamp(2.35rem,11vw,3.25rem)] font-bold leading-[1.02] text-white sm:hidden">
+              Build systems that grow.
             </h1>
 
             <div className="hidden sm:block">
               <Shuffle
                 animationMode="evenodd"
-                className="corelabs-hero-heading max-w-5xl text-left font-bold text-white"
+                className="corelabs-hero-heading max-w-3xl text-center font-bold text-white"
                 duration={1}
                 ease="power3.out"
                 loop={false}
@@ -92,27 +86,26 @@ export default function CorelabsHero() {
                 shuffleTimes={1}
                 stagger={0.03}
                 tag="h1"
-                text="Build systems that grow while you sleep."
-                textAlign="left"
+                text="Build systems that grow."
+                textAlign="center"
                 threshold={0.1}
                 triggerOnce
                 triggerOnHover
               />
             </div>
 
-            <div className="mt-5 grid gap-4 sm:mt-7 md:grid-cols-[minmax(0,0.78fr)_minmax(220px,0.34fr)] md:items-end md:gap-6">
-              <p className="max-w-2xl text-sm leading-6 text-white/76 sm:text-lg sm:leading-7">
+            <div className="mx-auto mt-5 grid max-w-3xl gap-4 sm:mt-2">
+              <p className="mx-auto max-w-3xl text-sm leading-6 text-white/76 sm:text-lg sm:leading-7">
                 We create conversion websites, CRM dashboards, AI workflows, and
-                YouTube growth engines for brands that need sharper operations,
-                cleaner execution, and better attention.
+                YouTube growth engines for brands that need sharper operationsand better attention.
               </p>
-              <p className="border-l border-[#9BFF00]/35 pl-4 text-xs leading-5 text-[#D9FF8A] sm:pl-5 sm:text-sm sm:leading-6">
+              {/* <p className="mx-auto max-w-xl border-t border-[#9BFF00]/35 pt-4 text-xs leading-5 text-[#D9FF8A] sm:text-sm sm:leading-6">
                 Not a template. A working digital system for how your business
                 sells, serves, and scales.
-              </p>
+              </p> */}
             </div>
 
-            <div className="mt-7 flex w-full flex-col gap-3 sm:mt-9 sm:w-auto sm:flex-row">
+            <div className="mx-auto mt-7 flex w-full flex-col justify-center gap-3 sm:w-auto sm:flex-row">
               <HeroButton href="#contact">Start a Project</HeroButton>
               <HeroButton href="#services" variant="ghost">
                 Explore Services
@@ -120,37 +113,10 @@ export default function CorelabsHero() {
             </div>
           </div>
 
-          <div className="hidden gap-4 lg:grid lg:pb-2">
-            <div className="rounded-lg border border-white/12 bg-[#071607]/72 p-5 backdrop-blur-md">
-              <p className="text-sm text-[#9BFF00]">Core operating stack</p>
-              <div className="mt-5 grid gap-3">
-                {stats.map((item) => (
-                  <div
-                    className="grid grid-cols-[52px_1fr] items-center gap-4 border-t border-white/10 pt-3 first:border-t-0 first:pt-0"
-                    key={item.label}
-                  >
-                    <span className="text-2xl font-bold text-white">
-                      {item.value}
-                    </span>
-                    <span className="text-sm leading-5 text-white/68">
-                      {item.label}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="rounded-lg border border-[#9BFF00]/25 bg-[#9BFF00] p-5 text-[#0F2D0F]">
-              <p className="text-sm font-medium">Landing page today</p>
-              <p className="mt-3 text-2xl font-bold leading-tight">
-                Then expand the rest without losing quality.
-              </p>
-            </div>
-          </div>
         </div>
 
 
-        <div className="relative left-1/2 mt-8 w-screen -translate-x-1/2 sm:mt-10">
+        <div className="relative left-1/2 w-screen -translate-x-1/2">
           <CorelabsStepGallery />
         </div>
       </div>
