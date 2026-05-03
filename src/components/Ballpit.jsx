@@ -369,13 +369,15 @@ function L() {
 
 function TouchStart(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
     for (const [elem, t] of b) {
       const rect = elem.getBoundingClientRect();
       if (D(rect)) {
+        if (e.cancelable) {
+          e.preventDefault();
+        }
         t.touching = true;
         P(t, rect);
         if (!t.hover) {
@@ -390,7 +392,6 @@ function TouchStart(e) {
 
 function TouchMove(e) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     A.x = e.touches[0].clientX;
     A.y = e.touches[0].clientY;
 
@@ -399,6 +400,9 @@ function TouchMove(e) {
       P(t, rect);
 
       if (D(rect)) {
+        if (e.cancelable) {
+          e.preventDefault();
+        }
         if (!t.hover) {
           t.hover = true;
           t.touching = true;
@@ -711,24 +715,27 @@ function createBallpit(e, t = {}) {
   const o = new w(new a(0, 0, 1), 0);
   const r = new a();
   let c = false;
+  let h = null;
 
-  e.style.touchAction = 'none';
+  e.style.touchAction = t.followCursor === false ? 'auto' : 'none';
   e.style.userSelect = 'none';
   e.style.webkitUserSelect = 'none';
 
-  const h = S({
-    domElement: e,
-    onMove() {
-      n.setFromCamera(h.nPosition, i.camera);
-      i.camera.getWorldDirection(o.normal);
-      n.ray.intersectPlane(o, r);
-      s.physics.center.copy(r);
-      s.config.controlSphere0 = true;
-    },
-    onLeave() {
-      s.config.controlSphere0 = false;
-    }
-  });
+  if (t.followCursor !== false) {
+    h = S({
+      domElement: e,
+      onMove() {
+        n.setFromCamera(h.nPosition, i.camera);
+        i.camera.getWorldDirection(o.normal);
+        n.ray.intersectPlane(o, r);
+        s.physics.center.copy(r);
+        s.config.controlSphere0 = true;
+      },
+      onLeave() {
+        s.config.controlSphere0 = false;
+      }
+    });
+  }
   function initialize(e) {
     if (s) {
       i.clear();
@@ -756,7 +763,7 @@ function createBallpit(e, t = {}) {
       c = !c;
     },
     dispose() {
-      h.dispose();
+      h?.dispose();
       i.dispose();
     }
   };
