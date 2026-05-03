@@ -43,39 +43,42 @@ function GalleryRow({
   items: typeof topRow;
   reverse?: boolean;
 }) {
-  const repeatedItems = [...items, ...items, ...items];
-
   return (
     <div className="overflow-hidden">
       <div
-        className={`flex w-max gap-5 pr-5 ${
+        className={`flex w-max ${
           reverse
             ? "corelabs-step-gallery-track-reverse"
             : "corelabs-step-gallery-track"
         }`}
       >
-        {repeatedItems.map((item, index) => (
-          <article
-            className="group relative h-[8.5rem] w-[76vw] shrink-0 overflow-hidden rounded-lg border border-white/12 bg-white/5 sm:h-64 sm:w-[520px] lg:h-72 lg:w-[620px]"
-            key={`${item.label}-${index}`}
-          >
-            <Image
-              alt={item.label}
-              className="object-cover transition duration-700 group-hover:scale-105"
-              fill
-              sizes="(max-width: 640px) 78vw, 620px"
-              src={item.image}
-            />
-            <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,22,7,0.08)_0%,rgba(7,22,7,0.78)_100%)]" />
-            <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 sm:bottom-4 sm:left-4 sm:right-4 sm:gap-4">
-              <h3 className="text-lg font-semibold leading-none text-white sm:text-3xl">
-                {item.label}
-              </h3>
-              <span className="rounded-full bg-[#9BFF00] px-2.5 py-1 text-[10px] font-medium text-[#0F2D0F] sm:px-3 sm:text-xs">
-                Corelabs
-              </span>
-            </div>
-          </article>
+        {[0, 1].map((groupIndex) => (
+          <div className="flex shrink-0 gap-5 pr-5" key={groupIndex}>
+            {items.map((item) => (
+              <article
+                aria-hidden={groupIndex === 1}
+                className="group relative h-[8.5rem] w-[76vw] shrink-0 overflow-hidden rounded-lg border border-white/12 bg-white/5 sm:h-64 sm:w-[520px] lg:h-72 lg:w-[620px]"
+                key={`${groupIndex}-${item.label}`}
+              >
+                <Image
+                  alt={item.label}
+                  className="object-cover transition duration-700 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 640px) 78vw, 620px"
+                  src={item.image}
+                />
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,22,7,0.08)_0%,rgba(7,22,7,0.78)_100%)]" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-end justify-between gap-3 sm:bottom-4 sm:left-4 sm:right-4 sm:gap-4">
+                  <h3 className="text-lg font-semibold leading-none text-white sm:text-3xl">
+                    {item.label}
+                  </h3>
+                  <span className="rounded-full bg-[#9BFF00] px-2.5 py-1 text-[10px] font-medium text-[#0F2D0F] sm:px-3 sm:text-xs">
+                    Corelabs
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
         ))}
       </div>
     </div>
