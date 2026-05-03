@@ -24,14 +24,6 @@ const stats = [
   { value: "A-Z", label: "YouTube systems from idea to distribution" },
 ];
 
-const capabilities = [
-  "Websites",
-  "CRM",
-  "AI Automation",
-  "Business Workflows",
-  "YouTube Growth",
-];
-
 function HeroButton({
   href,
   children,
@@ -78,26 +70,30 @@ export default function CorelabsHero() {
         />
       </div>
 
-      <div className="absolute inset-0 opacity-70">
+      <div className="pointer-events-none absolute inset-0 z-[2] opacity-100">
         <Ballpit
           ambientColor={0xf4ffe7}
-          ambientIntensity={1.6}
+          ambientIntensity={2}
           colors={[0x9bff00, 0xc8ff5e, 0xe8ffb8]}
           count={115}
           friction={0.9975}
           gravity={0.01}
-          lightIntensity={320}
+          lightIntensity={420}
           materialParams={{
-            metalness: 0.18,
-            roughness: 0.26,
+            metalness: 0.1,
+            roughness: 0.22,
             clearcoat: 1,
             clearcoatRoughness: 0.06,
           }}
+          maxSize={0.62}
+          minSize={0.28}
+          size0={0.55}
           wallBounce={0.95}
         />
       </div>
-      {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_38%,rgba(155,255,0,0.18),transparent_28%),linear-gradient(90deg,#071607_0%,rgba(7,22,7,0.5)_38%,rgba(15,45,15,0.5)_100%)]" /> */}
-      <div className="absolute bottom-0 left-0 right-0 h-full bg-[#071607]/20" />
+      <div className="pointer-events-none absolute inset-0 z-[3] bg-[#071607]/28" />
+      <div className="pointer-events-none absolute inset-0 z-[4] bg-[linear-gradient(90deg,rgba(7,22,7,0.72)_0%,rgba(7,22,7,0.34)_45%,rgba(15,45,15,0.16)_100%)]" />
+      <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[3] h-40 bg-gradient-to-t from-[#071607] to-transparent" />
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-12rem)] max-w-7xl flex-col justify-end pt-20">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.62fr)] lg:items-end">
