@@ -1,6 +1,11 @@
+"use client";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import TiltedCard from "@/components/TiltedCard";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 
 const services = [
   {
@@ -42,34 +47,70 @@ const services = [
 ];
 
 export default function Services() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const revealHeading = section.querySelector("[data-services-reveal]");
+
+      gsap.set(revealHeading, {
+        backgroundImage:
+          "linear-gradient(90deg, #0F2D0F 0%, #0F2D0F 50%, rgba(15,45,15,0.18) 50%, rgba(15,45,15,0.18) 100%)",
+        backgroundPosition: "100% 0",
+        backgroundSize: "220% 100%",
+        color: "transparent",
+        WebkitBackgroundClip: "text",
+        backgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      });
+
+      if (revealHeading) {
+        gsap.to(revealHeading, {
+          backgroundPosition: "0% 0",
+          ease: "none",
+          scrollTrigger: {
+            trigger: revealHeading,
+            start: "top 82%",
+            end: "bottom 42%",
+            scrub: 0.7,
+          },
+        });
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className="bg-white px-5 py-20 text-[#0F2D0F] sm:py-24 2xl:px-8"
       id="services"
     >
       <div className="mx-auto max-w-[1700px]">
-        <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
+        <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
           <div>
             <p className="text-sm font-normal text-[#4E7A22]">My services</p>
-            <h2 className="mt-4 max-w-3xl text-4xl font-semibold sm:text-6xl">
+            <h2
+              className="mt-4 max-w-3xl text-4xl font-semibold sm:text-6xl"
+              data-services-reveal
+            >
               What Corelabs can build for your business.
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[#284C16]/75">
+            <p className="mx-auto mt-5 max-w-2xl text-base leading-7 text-[#284C16]/75">
               From launch-ready websites to automation systems and YouTube
               growth engines, we build the digital infrastructure that helps
               your brand move with less friction.
             </p>
           </div>
-
-          <Link
-            className="group inline-flex min-h-14 w-full items-center justify-between gap-4 rounded-full bg-[#0F2D0F] py-2 pl-7 pr-2 text-sm font-normal text-white transition hover:bg-[#173D17] sm:w-56"
-            href="#contact"
-          >
-            <span>Talk to us</span>
-            <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-[#F4FFE7] text-[#0F2D0F] transition group-hover:translate-x-0.5 group-hover:-translate-y-0.5">
-              <ArrowRight className="h-4 w-4 -rotate-45" />
-            </span>
-          </Link>
         </div>
 
         <div className="mt-12 grid gap-x-5 gap-y-10 sm:grid-cols-2 lg:grid-cols-3">

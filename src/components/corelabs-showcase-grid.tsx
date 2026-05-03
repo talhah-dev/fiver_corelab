@@ -1,6 +1,7 @@
 "use client";
 
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import { Sparkles } from "lucide-react";
 import { useEffect, useRef } from "react";
@@ -42,16 +43,42 @@ export default function CorelabsShowcaseGrid() {
       return;
     }
 
+    gsap.registerPlugin(ScrollTrigger);
+
     const ctx = gsap.context(() => {
       const headingItems = section.querySelectorAll("[data-showcase-heading]");
+      const revealHeading = section.querySelector("[data-showcase-reveal]");
       const cardsEls = section.querySelectorAll("[data-showcase-card]");
       const images = section.querySelectorAll("[data-showcase-image]");
       const darkCard = section.querySelector("[data-showcase-dark]");
 
       gsap.set(headingItems, { autoAlpha: 0, y: 24, filter: "blur(8px)" });
+      gsap.set(revealHeading, {
+        backgroundImage:
+          "linear-gradient(90deg, #0F2D0F 0%, #0F2D0F 50%, rgba(15,45,15,0.18) 50%, rgba(15,45,15,0.18) 100%)",
+        backgroundPosition: "100% 0",
+        backgroundSize: "220% 100%",
+        color: "transparent",
+        WebkitBackgroundClip: "text",
+        backgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      });
       gsap.set(cardsEls, { autoAlpha: 0, y: 44, scale: 0.97 });
       gsap.set(images, { scale: 1.08 });
       gsap.set(darkCard, { autoAlpha: 0, y: 32, scale: 0.98 });
+
+      if (revealHeading) {
+        gsap.to(revealHeading, {
+          backgroundPosition: "0% 0",
+          ease: "none",
+          scrollTrigger: {
+            trigger: revealHeading,
+            start: "top 82%",
+            end: "bottom 42%",
+            scrub: 0.7,
+          },
+        });
+      }
 
       const tl = gsap.timeline({
         paused: true,
@@ -130,6 +157,7 @@ export default function CorelabsShowcaseGrid() {
           </div>
           <h2
             data-showcase-heading
+            data-showcase-reveal
             className="mt-6 max-w-4xl text-balance text-3xl font-semibold tracking-tight sm:text-5xl leading-tight"
           >
             Systems, automation, and design that actually move the business.

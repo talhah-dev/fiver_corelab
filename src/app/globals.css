@@ -185,3 +185,8 @@
   animation: corelabs-marquee 38s linear infinite;
   will-change: transform;
 }
+
+.corelabs-step-line-track {
+  animation: corelabs-marquee 24s linear infinite;
+  will-change: transform;
+}

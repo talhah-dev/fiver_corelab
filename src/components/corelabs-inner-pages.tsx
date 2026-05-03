@@ -1,4 +1,9 @@
+"use client";
+
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { useEffect, useRef } from "react";
 
 const pages = [
   {
@@ -29,16 +34,63 @@ const pages = [
 ];
 
 export default function CorelabsInnerPages() {
+  const sectionRef = useRef<HTMLElement>(null);
   const repeatedPages = [...pages, ...pages, ...pages];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+
+    if (!section) {
+      return;
+    }
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    const ctx = gsap.context(() => {
+      const revealHeading = section.querySelector("[data-inner-pages-reveal]");
+
+      gsap.set(revealHeading, {
+        backgroundImage:
+          "linear-gradient(90deg, #0F2D0F 0%, #0F2D0F 50%, rgba(15,45,15,0.18) 50%, rgba(15,45,15,0.18) 100%)",
+        backgroundPosition: "100% 0",
+        backgroundSize: "220% 100%",
+        color: "transparent",
+        WebkitBackgroundClip: "text",
+        backgroundClip: "text",
+        WebkitTextFillColor: "transparent",
+      });
+
+      if (revealHeading) {
+        gsap.to(revealHeading, {
+          backgroundPosition: "0% 0",
+          ease: "none",
+          scrollTrigger: {
+            trigger: revealHeading,
+            start: "top 82%",
+            end: "bottom 42%",
+            scrub: 0.7,
+          },
+        });
+      }
+    }, section);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section className="overflow-hidden bg-white pb-20 md:pt-10 text-[#0F2D0F] sm:pb-24 pt-5">
+    <section
+      ref={sectionRef}
+      className="overflow-hidden bg-white pb-20 md:pt-10 text-[#0F2D0F] sm:pb-24 pt-5"
+    >
       <div className="mx-auto flex max-w-7xl flex-col items-center px-5 text-center sm:px-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-[#0F2D0F]/12 bg-white px-5 py-2 text-sm text-[#0F2D0F]/72">
           <span className="h-1.5 w-1.5 rounded-full bg-[#0F2D0F]" />
           <span>Website systems</span>
         </div>
-        <h2 className="mt-6 max-w-3xl text-4xl font-semibold  leading-tight capitalize tracking-tight sm:text-6xl">
+        <h2
+          className="mt-6 max-w-3xl text-4xl font-semibold leading-tight capitalize tracking-tight sm:text-6xl"
+          data-inner-pages-reveal
+        >
           Elegant pages for every part of the business.
         </h2>
       </div>
