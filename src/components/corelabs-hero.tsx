@@ -46,7 +46,7 @@ function HeroButton({
 
 export default function CorelabsHero() {
   return (
-    <section className="relative min-h-[100svh] overflow-hidden bg-[#0F2D0F] px-4 pt-16 text-white sm:px-8 md:pt-10">
+    <section className="relative min-h-[100svh] overflow-hidden bg-[#0F2D0F] px-4 pt-16 text-white sm:px-8 md:pt-4">
       <div className="absolute inset-0">
         <StaggeredMenu
           accentColor="#9BFF00"
