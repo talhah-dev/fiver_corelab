@@ -32,7 +32,7 @@ export default function CorelabsInnerPages() {
   const repeatedPages = [...pages, ...pages, ...pages];
 
   return (
-    <section className="overflow-hidden bg-[#f7f9f2] pb-20 md:pt-10 text-[#0F2D0F] sm:pb-24 pt-5">
+    <section className="overflow-hidden bg-white pb-20 md:pt-10 text-[#0F2D0F] sm:pb-24 pt-5">
       <div className="mx-auto flex max-w-7xl flex-col items-center px-5 text-center sm:px-8">
         <div className="inline-flex items-center gap-2 rounded-full border border-[#0F2D0F]/12 bg-white px-5 py-2 text-sm text-[#0F2D0F]/72">
           <span className="h-1.5 w-1.5 rounded-full bg-[#0F2D0F]" />

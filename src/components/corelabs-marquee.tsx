@@ -30,8 +30,8 @@ function MarqueeRow() {
 
 export default function CorelabsMarquee() {
   return (
-    <div className="bg-[#f7f9f2] md:py-10">
-      <section className="overflow-hidden  bg-[#f7f9f2] py-8">
+    <div className="bg-white md:py-10">
+      <section className="overflow-hidden bg-white py-8">
         <div className="corelabs-marquee-track flex w-max min-w-full items-center">
           <MarqueeRow />
           <MarqueeRow />

@@ -44,10 +44,10 @@ const services = [
 export default function Services() {
   return (
     <section
-      className="bg-[#f7f9f2] px-5 py-20 text-[#0F2D0F] sm:py-24"
+      className="bg-white px-5 py-20 text-[#0F2D0F] sm:py-24 2xl:px-10"
       id="services"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1580px]">
         <div className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
             <p className="text-sm font-normal text-[#4E7A22]">My services</p>

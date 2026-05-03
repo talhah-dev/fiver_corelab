@@ -117,9 +117,9 @@ export default function CorelabsShowcaseGrid() {
   return (
     <section
       ref={sectionRef}
-      className="bg-[#f7f9f2] px-5 py-20 text-[#0F2D0F] sm:px-6 sm:py-24"
+      className="bg-white px-5 py-20 text-[#0F2D0F] sm:px-6 sm:py-24 2xl:px-10"
     >
-      <div className="mx-auto max-w-7xl">
+      <div className="mx-auto max-w-[1580px]">
         <div className="flex flex-col items-center text-center">
           <div
             data-showcase-heading

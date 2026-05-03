@@ -1,4 +1,3 @@
-import Ballpit from "@/components/Ballpit";
 import CorelabsStepGallery from "@/components/corelabs-step-gallery";
 import Shuffle from "@/components/Shuffle";
 import StaggeredMenu from "@/components/StaggeredMenu";
@@ -70,43 +69,13 @@ export default function CorelabsHero() {
         />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 z-[2] opacity-100">
-        <Ballpit
-          ambientColor={0xf4ffe7}
-          ambientIntensity={2}
-          colors={[0x9bff00, 0xc8ff5e, 0xe8ffb8]}
-          count={115}
-          friction={0.9975}
-          gravity={0.01}
-          lightIntensity={420}
-          materialParams={{
-            metalness: 0.1,
-            roughness: 0.22,
-            clearcoat: 1,
-            clearcoatRoughness: 0.06,
-          }}
-          maxSize={0.62}
-          minSize={0.28}
-          size0={0.55}
-          wallBounce={0.95}
-        />
-      </div>
-      <div className="pointer-events-none absolute inset-0 z-[3] bg-[#071607]/28" />
-      <div className="pointer-events-none absolute inset-0 z-[4] bg-[linear-gradient(90deg,rgba(7,22,7,0.72)_0%,rgba(7,22,7,0.34)_45%,rgba(15,45,15,0.16)_100%)]" />
+      <div className="pointer-events-none absolute inset-0 z-[1] bg-[radial-gradient(circle_at_78%_26%,rgba(155,255,0,0.16),transparent_26%),radial-gradient(circle_at_12%_84%,rgba(217,255,138,0.08),transparent_24%),linear-gradient(90deg,#071607_0%,rgba(7,22,7,0.92)_45%,#0F2D0F_100%)]" />
       <div className="pointer-events-none absolute bottom-0 left-0 right-0 z-[3] h-40 bg-gradient-to-t from-[#071607] to-transparent" />
 
       <div className="relative z-10 mx-auto flex min-h-[calc(100vh-12rem)] max-w-7xl flex-col justify-end pt-20">
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1.08fr)_minmax(340px,0.62fr)] lg:items-end">
           <div className="max-w-4xl">
-            <div className="mb-8 flex flex-wrap items-center gap-3">
-              <span className="rounded-full border border-[#9BFF00]/35 bg-[#9BFF00]/10 px-5 py-2 text-sm font-normal text-[#D9FF8A]">
-                Corelabs
-              </span>
-              <span className="text-sm text-white/62">
-                AI, software, automation, and content growth
-              </span>
-            </div>
-
+           
             <Shuffle
               animationMode="evenodd"
               className="max-w-5xl text-left text-5xl font-bold leading-tight text-white sm:text-7xl"
