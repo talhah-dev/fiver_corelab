@@ -777,9 +777,12 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
     if (!canUseWebGL(canvas)) return;
+    const canFollowCursor =
+      followCursor &&
+      window.matchMedia?.('(hover: hover) and (pointer: fine)').matches;
 
     try {
-      spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
+      spheresInstanceRef.current = createBallpit(canvas, { followCursor: canFollowCursor, ...props });
     } catch (error) {
       console.warn('Ballpit disabled because WebGL could not be initialized.', error);
     }
