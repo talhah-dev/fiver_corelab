@@ -13,10 +13,10 @@ export default function HomePage() {
         <div className='overflow-hidden'>
             <CorelabsHero />
 
-            <Services />
 
-            <SplitDoorSection />
             <CorelabsShowcaseGrid />
+            <SplitDoorSection />
+            <Services />
             <CorelabsInnerPages />
             <CorelabsMarquee />
 
